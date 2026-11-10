@@ -1,0 +1,23 @@
+{
+  "name": "bdo-activity-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Распознавание активности гильдии BDO из скриншотов прямо в браузере",
+  "scripts": {
+    "assets": "node scripts/assets.mjs",
+    "predev": "node scripts/assets.mjs",
+    "dev": "vite",
+    "prebuild": "node scripts/assets.mjs",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "tesseract.js": "7.0.0",
+    "xlsx-js-style": "1.2.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "7.3.8"
+  }
+}

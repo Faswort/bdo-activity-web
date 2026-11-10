@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Распознавание активности участников гильдии BDO из скриншотов в браузере. На выходе — XLSX."
+    />
+    <title>BDO — активность гильдии из скриншотов</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f3864'/%3E%3Cpath d='M8 22V10h5.2c3 0 4.8 1.4 4.8 3.7 0 1.6-.9 2.7-2.3 3.2 1.8.4 2.9 1.7 2.9 3.4 0 2.5-2 4.1-5.2 4.1H8zm3-7.1h2c1.5 0 2.3-.6 2.3-1.7s-.8-1.7-2.2-1.7H11v3.4zm0 4.8h2.3c1.6 0 2.5-.6 2.5-1.8s-.9-1.8-2.5-1.8H11v3.6z' fill='%23e8c46a'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./src/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <p class="eyebrow">Black Desert Online</p>
+        <h1>Активность гильдии</h1>
+        <p class="subtitle">
+          Загрузите скриншоты со списком участников — получите XLSX с активностью за текущую дату.
+          Всё происходит в браузере: изображения никуда не отправляются.
+        </p>
+      </header>
+
+      <section class="card">
+        <div id="drop" class="drop">
+          <input id="file" type="file" accept="image/*" multiple hidden />
+          <div class="drop-inner">
+            <svg class="drop-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p class="drop-title">Перетащите скриншоты сюда</p>
+            <p class="drop-hint">
+              или <button id="pick" class="link" type="button">выберите файлы</button>.
+              Одна партия — до 14 изображений.
+            </p>
+          </div>
+        </div>
+
+        <div id="files" class="files" hidden></div>
+        <p id="files-note" class="note"></p>
+
+        <div class="actions">
+          <button id="run" class="primary" type="button" disabled>Распознать</button>
+          <button id="clear" class="ghost" type="button" disabled>Очистить</button>
+        </div>
+
+        <div id="progress" class="progress" hidden>
+          <div class="progress-head">
+            <span id="progress-stage">Подготовка…</span>
+            <span id="progress-percent"></span>
+          </div>
+          <div class="bar"><div id="bar-fill" class="bar-fill"></div></div>
+          <p id="progress-detail" class="note"></p>
+        </div>
+      </section>
+
+      <section id="result" class="card" hidden>
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">Результат</p>
+            <h2 id="result-title">Готово</h2>
+            <p id="result-summary" class="note"></p>
+          </div>
+          <button id="download" class="primary" type="button">Скачать XLSX</button>
+        </div>
+
+        <div id="metrics" class="metrics"></div>
+
+        <div class="table-wrap">
+          <table id="preview">
+            <thead>
+              <tr>
+                <th>Фамилия</th>
+                <th id="preview-date"></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <details id="warnings-box" class="warnings" hidden>
+          <summary>Замечания (<span id="warnings-count">0</span>)</summary>
+          <ul id="warnings"></ul>
+        </details>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Данные не сохраняются: после скачивания XLSX в браузере не остаётся ни скриншотов,
+          ни таблиц. Языковая модель OCR кэшируется браузером, чтобы не скачивать её каждый раз.
+        </p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

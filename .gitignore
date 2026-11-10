@@ -1,0 +1,16 @@
+# Зависимости и сборка
+node_modules/
+dist/
+
+# OCR-ресурсы готовятся скриптом scripts/assets.mjs из node_modules
+# и скачиваются заново, поэтому в репозитории не хранятся.
+public/tesseract/
+public/tesseract-core/
+public/tessdata/
+
+# Локальные файлы и мусор
+.vite/
+*.local
+.DS_Store
+Thumbs.db
+desktop.ini
